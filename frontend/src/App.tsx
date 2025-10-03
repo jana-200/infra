@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react"
 import "./App.css"
 import persoImage from "./assets/image.png"
-import whaleImage from "./assets/whale2.png"
+import darkMascot from "./assets/leGrand.png"
 
 function App() {
   const [decor, setDecor] = useState<{ id: number; x: number; y: number; type: string }[]>([])
   const [isLoveActive, setIsLoveActive] = useState(false)
-  const [isMagic, setIsMagic] = useState(false) // monde magique ou normal
+  const [isDark, setIsDark] = useState(false)
 
   // Génération des décorations
   useEffect(() => {
     if (!isLoveActive) return
 
     const interval = setInterval(() => {
-      const items = isMagic ? ["🐳", "✨", "💖"] : ["💖", "✨", "🌸", "💕"]
+      const items = isDark
+        ? ["sudo", "bash", "🐧", "🚬", "🌙"]
+        : ["💖", "🌸", "💕", "🐳", "🐧", "🐋"]
 
       setDecor((prev) => [
         ...prev,
@@ -27,9 +29,8 @@ function App() {
     }, 300)
 
     return () => clearInterval(interval)
-  }, [isLoveActive, isMagic])
+  }, [isLoveActive, isDark])
 
-  // Animation de montée
   useEffect(() => {
     if (!isLoveActive) return
 
@@ -44,49 +45,60 @@ function App() {
     return () => clearInterval(timer)
   }, [isLoveActive])
 
-  // Stop l’animation si love désactivé
   useEffect(() => {
     if (!isLoveActive) setDecor([])
   }, [isLoveActive])
 
-  // Basculer entre monde normal et monde magique
   const handleMagicClick = () => {
-    setIsMagic((prev) => !prev) // toggle
+    setIsDark(true)
+    setIsLoveActive(true)
   }
 
   return (
-    <div className="app">
+    <div className={`app ${isDark ? "dark" : ""}`}>
       {/* Titre */}
       <h1 className="title">
-        {isMagic
-          ? "Bienvenue dans le monde enchanté de Docker ✨🐳"
-          : "Bienvenue dans le monde enchanté de Choquet ✨🎀"}
+        {isDark
+          ? "mac haters club 🐧"
+          : "Docker & Debian Wonderland 🐳"}
       </h1>
 
-      {/* Mascotte ou baleine */}
+      {/* Mascotte */}
       <div className="mascot">
-        <img
-          src={isMagic ? whaleImage : persoImage}
-          alt={isMagic ? "Baleine magique" : "Mascotte mignonne"}
-          className={isMagic ? "whale" : ""}
-        />
+        <img src={isDark ? darkMascot : persoImage} alt="Mascotte" className={isDark ? "whale" : ""}/>
       </div>
 
       {/* Sous-texte */}
       <p className="subtitle">
-        {isMagic
-          ? "Explore les merveilles de Docker avec notre baleine magique ✨"
-          : "Plonge dans un monde rempli d’amour, de paillettes et de douceurs 🍓"}
+        {isDark
+          ? "frissons, ténébres ... LINUX "
+          : "Plonge dans Docker, Debian et plein de mignonneries 🐳✨"}
       </p>
 
       {/* Boutons */}
       <div className="buttons">
-        <button onClick={() => setIsLoveActive((prev) => !prev)}>
-          {isLoveActive ? "💔 Arrêter l'amour" : "💌 Envoyer de l'amour"}
+        <button
+          onClick={() => {
+            if (isDark && isLoveActive) {
+              setIsDark(false)
+              setIsLoveActive(false)
+              setDecor([])
+            } else {
+              setIsLoveActive((prev) => !prev)
+            }
+          }}
+        >
+          {isLoveActive
+            ? isDark
+              ? "💀 Quitter le club"
+              : "💔 Arrêter le fun"
+            : isDark
+            ? "☠️ Entrer dans Linux Night"
+            : "💌 un peu de fun"}
         </button>
-        <button onClick={handleMagicClick}>
-          🌸 Lancer le sort magique
-        </button>
+        {!isDark && (
+          <button onClick={handleMagicClick}>🐧 linux club </button>
+        )}
       </div>
 
       {/* Décor flottant */}

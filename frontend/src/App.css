@@ -6,8 +6,8 @@ body, html, #root {
   overflow: hidden;
   font-family: "Comic Sans MS", cursive, sans-serif;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .app {
@@ -17,47 +17,26 @@ body, html, #root {
   position: relative;
   padding-top: 60px;
   box-sizing: border-box;
-
-  /* Gradient animé plus foncé mais doux, avec touches très claires de bleu pastel */
-  background: linear-gradient(135deg, #ff9ec4, #ff87b0, #ffa3c4, #d4e7f6, #f9d1ed);
-  background-size: 600% 600%;
-  animation: gradientShift 20s ease infinite;
+  background: linear-gradient(135deg, #f6bef1, #f692ca, #f6a0cb);
+  transition: background 1s ease;
 }
 
-/* Animation douce du gradient */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 50%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 50%; }
-  100% { background-position: 0% 50%; }
+.app.dark {
+  background: linear-gradient(135deg, #000000, #1a1a1a, #333333);
 }
 
-/* Titre */
 .title {
-  font-size: 2rem;
+  font-size: 3rem;
   color: white;
-  text-shadow: 0 0 15px hotpink, 0 0 25px deeppink;
+  text-shadow: 0 0 10px hotpink, 0 0 20px deeppink;
   margin-bottom: 40px;
   letter-spacing: 2px;
 }
 
-/* Mascotte / Baleine */
-.mascot img {
-  max-width: 300px;
-  border-radius: 25px;
-  border: 5px solid white;
-  box-shadow: 0 0 35px hotpink;
-  transition: all 0.8s ease;
+.app.dark .title {
+  text-shadow: 0 0 10px red, 0 0 20px black;
 }
 
-/* Taille spécifique pour la baleine */
-.mascot img.whale {
-  max-width: 350px; /* plus grande */
-  border: none;     /* plus de bord blanc */
-}
-
-/* Sous-texte */
 .subtitle {
   font-size: 1.4rem;
   color: #fff;
@@ -65,7 +44,22 @@ body, html, #root {
   margin: 20px 0 40px 0;
 }
 
-/* Boutons */
+.app.dark .subtitle {
+  text-shadow: 0 0 8px red;
+}
+
+.mascot img {
+  max-width: 300px;
+  border-radius: 25px;
+  border: 5px solid white;
+  box-shadow: 0 0 35px hotpink;
+  transition: all 1s ease;
+}
+
+.app.dark .mascot img {
+  box-shadow: 0 0 35px red;
+}
+
 .buttons {
   margin-top: 30px;
   display: flex;
@@ -88,8 +82,12 @@ button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 28px deeppink;
 }
+.app.dark button {
+  background: #550000;
+  box-shadow: 0 0 18px red;
+}
 
-/* Décor flottant */
+
 .floating {
   position: absolute;
   font-size: 2.2rem;
