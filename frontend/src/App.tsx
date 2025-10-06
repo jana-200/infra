@@ -15,7 +15,7 @@ function App() {
     const interval = setInterval(() => {
       const items = isDark
         ? ["sudo", "bash", "🐧", "🚬", "🌙"]
-        : ["💖", "🌸", "💕", "🐳", "🐧", "🐋"]
+        : ["💖", "🌸", "💕", "🐳"]
 
       setDecor((prev) => [
         ...prev,
@@ -59,7 +59,7 @@ function App() {
       {/* Titre */}
       <h1 className="title">
         {isDark
-          ? "mac haters club 🐧"
+          ? "tux lovers 🐧"
           : "Docker & Debian Wonderland 🐳"}
       </h1>
 
