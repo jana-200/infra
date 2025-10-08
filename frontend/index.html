@@ -2,12 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <meta name="description" content="Modern React frontend app built with Vite" />
+    <meta name="author" content="Your Name" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <title>React Frontend</title>
+
+    <!-- Optional: basic styles for loading screen -->
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #f5f7fa;
+        color: #222;
+      }
+      #root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      #loading {
+        font-size: 1.2rem;
+        color: #555;
+        animation: pulse 1.5s infinite;
+      }
+      @keyframes pulse {
+        0% { opacity: 0.4; }
+        50% { opacity: 1; }
+        100% { opacity: 0.4; }
+      }
+    </style>
   </head>
+
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="loading">🚀 Loading React app...</div>
+    </div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

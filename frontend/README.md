@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+# Projet Docker – Application Web React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Langage : React (JavaScript + Vite)
 
-Currently, two official plugins are available:
+Créer le projet React : 
+`npm create vite@latest my-react-app -- --template react && cd my-react-app && npm install && npm run build`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Créer un fichier Dockerfile à la racine du projet.
 
-## React Compiler
+Transférer le projet sur la VM à l'aide de winscp
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+Installer Docker sur la VM : 
+`apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`
 
-## Expanding the ESLint configuration
+Vérifier que docker tourne :
+`docker run hello-world`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Aller dans le projet :
+`cd my-react-app `
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Construire l’image Docker : 
+`cd my-react-app && docker build -t react-app .`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Lancer le conteneur : 
+` docker run -d -p 3000:80 react-app`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Tester dans la VM : 
+`lynx http://localhost:3000`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Configurer le port forwarding dans VirtualBox : Paramètres VM → Réseau → Avancé → Redirection de ports  
+Nom : React, Protocole : TCP, Port hôte : 3000, Port invité : 3000
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Accéder au site depuis la machine locale : ouvrir le navigateur sur `http://localhost:3000`
